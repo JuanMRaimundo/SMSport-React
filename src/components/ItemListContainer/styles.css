@@ -2,3 +2,8 @@
 	list-style: none;
 	flex: 1;
 }
+.contador {
+	display: flex;
+	align-items: center;
+	margin: 1%;
+}

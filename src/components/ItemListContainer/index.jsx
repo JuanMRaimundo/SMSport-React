@@ -1,26 +1,31 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+
+import { products } from "../../mocks/data.js";
+import Items from "../Items";
+import Card from "../Card";
 import "./styles.css";
 
-function ItemListContainer({ greetings }) {
-	const [saludo, setSaludo] = useState(greetings);
+function ItemListContainer({ greetings, stock }) {
+	const [productos, setProducts] = useState([]);
 
-	function changeGreeting() {
-		setSaludo("¡Comencemos con tu compra!");
-	}
+	useEffect(() => {
+		const result = new Promise((resolve) =>
+			setTimeout(() => resolve(products), 2000)
+		);
+		result
+			.then((data) => setProducts(data))
+			.catch((error) => console.log(error));
+	}, []);
+	console.log(productos);
 
-	return (
-		<div className="item-list-container">
-			<Content saludo={saludo} changeGreeting={changeGreeting} />
-		</div>
-	);
-}
-function Content({ saludo, changeGreeting }) {
 	return (
 		<>
-			<p>{saludo}</p>
-			<button className="btn btn-warning" onClick={changeGreeting}>
-				Comencemos
-			</button>
+			<div>
+				<Card stock="5" />
+			</div>
+			<div>
+				<Items productos={productos} />
+			</div>
 		</>
 	);
 }
