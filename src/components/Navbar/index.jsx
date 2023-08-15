@@ -1,7 +1,9 @@
 import "./styles.css";
 import Logo from "../../assets/icons/logo.png";
 import CartWidget from "./CartWidget";
-
+//ROUTER
+import { Link } from "react-router-dom";
+//STYLES
 import Button from "react-bootstrap/Button";
 import Container from "react-bootstrap/Container";
 import Form from "react-bootstrap/Form";
@@ -13,7 +15,9 @@ function NavbarIndex() {
 	return (
 		<Navbar expand="lg" className="bg-warning">
 			<Container fluid>
-				<img src={Logo} alt="logo" className="logo-icon" />
+				<a href="/">
+					<img src={Logo} alt="logo" className="logo-icon" />
+				</a>
 				<Navbar.Toggle aria-controls="navbarScroll" />
 				<Navbar.Collapse id="navbarScroll">
 					<Nav
@@ -21,15 +25,23 @@ function NavbarIndex() {
 						style={{ maxHeight: "100px" }}
 						navbarScroll
 					>
-						<Nav.Link href="#action1">Inicio</Nav.Link>
-						<Nav.Link href="#action2">Contacto</Nav.Link>
-						<NavDropdown title="Productos" id="navbarScrollingDropdown">
-							<NavDropdown.Item href="#action3">Indumentaria</NavDropdown.Item>
-							<NavDropdown.Item href="#action4">
-								Elementos para tu Gym
-							</NavDropdown.Item>
-							<NavDropdown.Divider />
-							<NavDropdown.Item href="#action5">Presupuesto</NavDropdown.Item>
+						<Link className="nav-link" to="/">
+							Inicio
+						</Link>
+						<Link className="nav-link" to="/Contact">
+							Contact
+						</Link>
+						<NavDropdown title="Category" id="navbarScrollingDropdown">
+							<Link className="nav-link" to="/Category/Remeras">
+								Remeras
+							</Link>
+
+							<Link className="nav-link" to="/Category/Pantalones">
+								Pantalones
+							</Link>
+							<Link className="nav-link" to="/Category/Zapatillas">
+								Zapatillas
+							</Link>
 						</NavDropdown>
 						<Nav.Link href="#" disabled>
 							Nosotros

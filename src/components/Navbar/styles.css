@@ -12,3 +12,6 @@
 	width: 300px;
 	height: 250px;
 }
+.nav-link {
+	list-style: none;
+}

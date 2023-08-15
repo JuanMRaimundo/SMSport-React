@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
-import Camiseta from "../../assets/icons/camisetaB.jpg";
+import { Link } from "react-router-dom";
 
-function Card({ stock }) {
+function Card({ stock, data }) {
 	const [count, setCount] = useState(Math.min(0, stock));
 
 	function increment() {
@@ -15,12 +15,19 @@ function Card({ stock }) {
 			setCount((prevCount) => prevCount - 1);
 		}
 	}
+	if (!data) {
+		return "no se encontró producto"; // No renderizar nada si data es undefined
+	}
 	return (
 		<div className="card contador" style={{ width: "18rem" }}>
-			<img className="card-img-top" src={Camiseta} alt="Card image cap" />
+			<Link to={`/item/${data.id}`}>
+				<img className="card-img-top" src={data.image} alt="Card image cap" />
+			</Link>
+
 			<div className="card-body">
-				<h5 className="card-title">Camiseta Boca Juniors</h5>
-				<p className="card-text">Titular 22/23 De Hombre</p>
+				<h5 className="card-title">{data.name}</h5>
+				<p className="card-text">{data.description}</p>
+				<p className="card-price">${data.precio}</p>
 				<button
 					className="btn btn-warning"
 					onClick={decrement}

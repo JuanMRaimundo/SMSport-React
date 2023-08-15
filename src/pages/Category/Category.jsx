@@ -1,25 +1,32 @@
+import React from "react";
 import { useEffect, useState } from "react";
 
+import { useParams } from "react-router-dom";
 //MOCKS
 import { products } from "../../mocks/data.js";
 //COMPONENTS
-import Card from "../Card/index.jsx";
+import Card from "../../components/Card/index.jsx";
 //STYLES
-import "./styles.css";
 import Spinner from "react-bootstrap/Spinner";
 
-function ItemListContainer() {
+function Category() {
 	const [productos, setProductos] = useState([]);
+	let { categoryID } = useParams();
 
 	useEffect(() => {
-		const result = new Promise((resolve) =>
+		const filteredProductPromise = new Promise((resolve) =>
 			setTimeout(() => resolve(products), 2000)
 		);
-		result
-			.then((data) => setProductos(data))
+
+		filteredProductPromise
+			.then((data) => {
+				const filteredProducts = data.filter(
+					(prod) => prod.category === categoryID
+				); // Filtra por categoría
+				setProductos(filteredProducts);
+			})
 			.catch((error) => console.log(error));
-		console.log(productos);
-	}, [productos]);
+	}, [categoryID]);
 
 	return (
 		<div className="list">
@@ -36,4 +43,4 @@ function ItemListContainer() {
 	);
 }
 
-export default ItemListContainer;
+export default Category;
