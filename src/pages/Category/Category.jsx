@@ -6,14 +6,15 @@ import { useParams } from "react-router-dom";
 import { products } from "../../mocks/data.js";
 //COMPONENTS
 import Card from "../../components/Card/index.jsx";
-//STYLES
-import Spinner from "react-bootstrap/Spinner";
+import { LinearProgress, Grid } from "@mui/material";
 
 function Category() {
 	const [productos, setProductos] = useState([]);
+	const [isLoading, setisLoading] = useState(false);
 	let { categoryID } = useParams();
 
 	useEffect(() => {
+		setisLoading(true);
 		const filteredProductPromise = new Promise((resolve) =>
 			setTimeout(() => resolve(products), 2000)
 		);
@@ -24,22 +25,26 @@ function Category() {
 					(prod) => prod.category === categoryID
 				); // Filtra por categoría
 				setProductos(filteredProducts);
+				setisLoading(false);
 			})
-			.catch((error) => console.log(error));
+			.catch((error) => {
+				console.log(error);
+				setisLoading(false);
+			});
 	}, [categoryID]);
 
 	return (
-		<div className="list">
-			{productos.length > 0 ? (
-				productos.map((prod) => (
-					<div key={prod.id}>
-						<Card data={prod} stock={5} />
-					</div>
-				))
+		<Grid container spacing={2} className="list">
+			{isLoading ? (
+				<LinearProgress color="warning" />
 			) : (
-				<Spinner animation="border" variant="warning" />
+				productos.map((prod) => (
+					<Grid item xs={12} md={6} lg={3} key={prod.id}>
+						<Card data={prod} stock={5} />
+					</Grid>
+				))
 			)}
-		</div>
+		</Grid>
 	);
 }
 

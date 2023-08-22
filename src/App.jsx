@@ -17,9 +17,8 @@ import ItemListContainer from "./components/ItemListContainer";
 function App() {
 	return (
 		<Router>
-			<main className="main">
-				<NavbarIndex />
-			</main>
+			<NavbarIndex />
+
 			<Routes>
 				<Route exact path="/" element={<Home />} />
 				<Route exact path="/category/:categoryID" element={<Category />} />

@@ -4,16 +4,17 @@ import { useEffect, useState } from "react";
 import { products } from "../../mocks/data.js";
 //COMPONENTS
 import Card from "../Card/index.jsx";
+import { Grid, LinearProgress } from "@mui/material";
 //STYLES
 import "./styles.css";
-import Spinner from "react-bootstrap/Spinner";
+import { Col, Container, Row } from "react-bootstrap";
 
 function ItemListContainer() {
 	const [productos, setProductos] = useState([]);
 
 	useEffect(() => {
 		const result = new Promise((resolve) =>
-			setTimeout(() => resolve(products), 2000)
+			setTimeout(() => resolve(products), 200000)
 		);
 		result
 			.then((data) => setProductos(data))
@@ -22,17 +23,17 @@ function ItemListContainer() {
 	}, [productos]);
 
 	return (
-		<div className="list">
+		<Grid container spacing={2} className="list">
 			{productos.length > 0 ? (
 				productos.map((prod) => (
-					<div key={prod.id}>
+					<Grid item xs={12} md={6} lg={3} key={prod.id}>
 						<Card data={prod} stock={5} />
-					</div>
+					</Grid>
 				))
 			) : (
-				<Spinner animation="border" variant="warning" />
+				<LinearProgress color="warning" />
 			)}
-		</div>
+		</Grid>
 	);
 }
 
