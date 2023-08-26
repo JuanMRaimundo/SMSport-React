@@ -3,11 +3,12 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 //MOCKS
 import { products } from "../../mocks/data.js";
+import { LinearProgress } from "@mui/material";
 
 //COMPONENTS
 import Card from "../../components/Card";
+
 //STYLES
-import Spinner from "react-bootstrap/Spinner";
 
 function Item() {
 	const [producto, setProducto] = useState(null); // Inicializar como null para indicar que no hay producto seleccionado
@@ -32,7 +33,9 @@ function Item() {
 				{producto ? (
 					<Card data={producto} stock={5} />
 				) : (
-					<Spinner animation="border" variant="warning" />
+					<div>
+						<LinearProgress color="warning" className="progres" />
+					</div>
 				)}
 			</div>
 		</>

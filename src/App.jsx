@@ -12,20 +12,23 @@ import Contact from "./pages/Contact/Contact";
 
 //COMPONENTS
 import NavbarIndex from "./components/Navbar";
+import { CartContext } from "./context/CartContext";
 import ItemListContainer from "./components/ItemListContainer";
 
 function App() {
 	return (
-		<Router>
-			<NavbarIndex />
+		<CartContext.Provider>
+			<Router>
+				<NavbarIndex />
 
-			<Routes>
-				<Route exact path="/" element={<Home />} />
-				<Route exact path="/category/:categoryID" element={<Category />} />
-				<Route exact path="/contact" element={<Contact />} />
-				<Route exact path="/item/:id" element={<Item />} />
-			</Routes>
-		</Router>
+				<Routes>
+					<Route exact path="/" element={<Home />} />
+					<Route exact path="/category/:categoryID" element={<Category />} />
+					<Route exact path="/contact" element={<Contact />} />
+					<Route exact path="/item/:id" element={<Item />} />
+				</Routes>
+			</Router>
+		</CartContext.Provider>
 	);
 }
 

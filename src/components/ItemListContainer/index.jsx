@@ -4,17 +4,16 @@ import { useEffect, useState } from "react";
 import { products } from "../../mocks/data.js";
 //COMPONENTS
 import Card from "../Card/index.jsx";
-import { Grid, LinearProgress } from "@mui/material";
+import { Grid, LinearProgress, Container } from "@mui/material";
 //STYLES
 import "./styles.css";
-import { Col, Container, Row } from "react-bootstrap";
 
 function ItemListContainer() {
 	const [productos, setProductos] = useState([]);
 
 	useEffect(() => {
 		const result = new Promise((resolve) =>
-			setTimeout(() => resolve(products), 200000)
+			setTimeout(() => resolve(products), 2000)
 		);
 		result
 			.then((data) => setProductos(data))
@@ -23,7 +22,7 @@ function ItemListContainer() {
 	}, [productos]);
 
 	return (
-		<Grid container spacing={2} className="list">
+		<Grid className="list">
 			{productos.length > 0 ? (
 				productos.map((prod) => (
 					<Grid item xs={12} md={6} lg={3} key={prod.id}>

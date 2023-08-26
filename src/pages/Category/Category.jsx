@@ -6,7 +6,7 @@ import { useParams } from "react-router-dom";
 import { products } from "../../mocks/data.js";
 //COMPONENTS
 import Card from "../../components/Card/index.jsx";
-import { LinearProgress, Grid } from "@mui/material";
+import { LinearProgress, Grid, Container } from "@mui/material";
 
 function Category() {
 	const [productos, setProductos] = useState([]);
@@ -33,17 +33,17 @@ function Category() {
 			});
 	}, [categoryID]);
 
-	return (
-		<Grid container spacing={2} className="list">
-			{isLoading ? (
-				<LinearProgress color="warning" />
-			) : (
-				productos.map((prod) => (
-					<Grid item xs={12} md={6} lg={3} key={prod.id}>
-						<Card data={prod} stock={5} />
-					</Grid>
-				))
-			)}
+	return isLoading ? (
+		<div>
+			<LinearProgress color="warning" className="progres" />
+		</div>
+	) : (
+		<Grid className="list">
+			{productos.map((prod) => (
+				<Grid item xs={12} md={6} lg={3} key={prod.id}>
+					<Card data={prod} stock={5} />
+				</Grid>
+			))}
 		</Grid>
 	);
 }

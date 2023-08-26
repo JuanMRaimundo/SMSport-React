@@ -1,8 +1,8 @@
 .list {
-	/* 	list-style: none;
+	list-style: none;
 	display: grid;
 	grid-template-columns: 1fr 1fr 1fr 1fr;
-	margin-left: 5%; */
+	margin-left: 5%;
 	margin-top: 5px;
 }
 .contador {
@@ -10,7 +10,11 @@
 	align-items: center;
 	margin: 1%;
 }
-.spinner {
-	display: flex;
-	align-items: center;
-}
+
+/* .css-1oqqzyl-MuiContainer-root {
+	list-style: none;
+	display: grid;
+	grid-template-columns: 1fr 1fr 1fr 1fr;
+	margin-left: 5%;
+	margin-top: 5px;
+} */
