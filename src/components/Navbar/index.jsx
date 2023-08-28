@@ -46,7 +46,9 @@ function NavbarIndex() {
 						<Nav.Link href="#" disabled>
 							Nosotros
 						</Nav.Link>
-						<CartWidget />
+						<Link className="nav-link" to="/Cart">
+							<CartWidget />
+						</Link>
 					</Nav>
 					<Form className="d-flex">
 						<Form.Control

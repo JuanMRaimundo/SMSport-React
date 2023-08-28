@@ -16,7 +16,7 @@ function Card({ data }) {
 				<h5 className="card-title">{data.name}</h5>
 				<p className="card-text">{data.description}</p>
 				<p className="card-price">${data.precio}</p>
-				<ItemCount stock={5} />
+				<ItemCount stock={5} product={data} />
 			</div>
 		</div>
 	);
