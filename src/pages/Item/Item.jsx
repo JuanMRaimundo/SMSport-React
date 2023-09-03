@@ -1,37 +1,54 @@
 import React from "react";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-//MOCKS
-import { products } from "../../mocks/data.js";
-import { LinearProgress } from "@mui/material";
 
+//DATA
+
+import { db } from "../../firebase/firebaseConfig.jsx";
 //COMPONENTS
 import Card from "../../components/Card";
+import { LinearProgress } from "@mui/material";
+import { collection, query, where, getDocs } from "firebase/firestore";
+import { ItemCount } from "../../components/ItemCount/ItemCount.jsx";
 
 //STYLES
 
-function Item() {
+function Item({ data }) {
 	const [producto, setProducto] = useState(null); // Inicializar como null para indicar que no hay producto seleccionado
 	let { id } = useParams();
 
 	useEffect(() => {
-		const selectedProductPromise = new Promise((resolve) =>
-			setTimeout(() => resolve(products), 2000)
-		);
+		const selectedProductPromise = async () => {
+			try {
+				const q = query(collection(db, "sportswear"));
+				const querySnapshot = await getDocs(q);
 
-		selectedProductPromise
-			.then((data) => {
-				const selectedProduct = data.find((prod) => prod.id === id); // Buscar el producto seleccionado
-				setProducto(selectedProduct);
-			})
-			.catch((error) => console.log(error));
+				// Mapear los documentos a un array de objetos con un 'id' personalizado
+				const docs = querySnapshot.docs.map((doc) => ({
+					id: doc.id,
+					...doc.data(),
+				}));
+
+				// Encontrar el producto por 'id'
+				const selectedProduct = docs.find((prod) => prod.id === id);
+
+				setProducto(selectedProduct); // Actualizar el estado con el producto encontrado
+			} catch (error) {
+				console.error("Error al obtener los datos:", error);
+			}
+		};
+
+		selectedProductPromise();
 	}, [id]);
-	//acá dejo fragmento para luego ver cómo agregar mayor descripción
+
 	return (
 		<>
 			<div className="list">
 				{producto ? (
-					<Card data={producto} stock={5} />
+					<>
+						<Card data={producto} stock={5} />
+						<ItemCount stock={5} product={producto} />
+					</>
 				) : (
 					<div>
 						<LinearProgress color="warning" className="progres" />

@@ -1,5 +1,7 @@
 import { useState, useContext } from "react";
 import { CartContext } from "../../context/CartContext";
+import { Link } from "react-router-dom";
+import { ButtonGroup } from "react-bootstrap";
 
 export const ItemCount = ({ stock, product }) => {
 	const { cart, addToCart, removeFromCart, clearCart, cartTotal } =
@@ -18,8 +20,8 @@ export const ItemCount = ({ stock, product }) => {
 		}
 	};
 	const addToCartHandler = () => {
-		addToCart(product.id, count); // Aquí pasamos el ID del producto y la cantidad al contexto del carrito
-		setCount(1);
+		addToCart(product, count); // Aquí pasamos el ID del producto y la cantidad al contexto del carrito
+		setCount(0);
 	};
 
 	return (
@@ -47,6 +49,12 @@ export const ItemCount = ({ stock, product }) => {
 				Agregar al Carrito
 			</button>
 			<button onClick={removeFromCart}>Eliminar producto</button>
+			<Link to="/">
+				<button>Volver</button>
+			</Link>
+			<Link to="../">
+				<button>Finalizar Compra</button>
+			</Link>
 		</div>
 	);
 };

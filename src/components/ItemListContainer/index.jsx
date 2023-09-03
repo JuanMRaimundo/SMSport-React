@@ -1,10 +1,12 @@
 import { useEffect, useState } from "react";
 
-//MOCKS
-import { products } from "../../mocks/data.js";
+//DATA
+
+import { db } from "../../firebase/firebaseConfig.jsx";
 //COMPONENTS
 import Card from "../Card/index.jsx";
 import { Grid, LinearProgress, Container } from "@mui/material";
+import { collection, query, where, getDocs } from "firebase/firestore";
 //STYLES
 import "./styles.css";
 
@@ -12,14 +14,18 @@ function ItemListContainer() {
 	const [productos, setProductos] = useState([]);
 
 	useEffect(() => {
-		const result = new Promise((resolve) =>
-			setTimeout(() => resolve(products), 2000)
-		);
-		result
-			.then((data) => setProductos(data))
-			.catch((error) => console.log(error));
-		console.log(productos);
-	}, [productos]);
+		const getProducts = async () => {
+			const q = query(collection(db, "sportswear"));
+			const docs = [];
+			const querySnapshot = await getDocs(q);
+			querySnapshot.forEach((doc) => {
+				// doc.data() is never undefined for query doc snapshots
+				docs.push({ ...doc.data(), id: doc.id });
+			});
+			setProductos(docs);
+		};
+		getProducts();
+	}, []);
 
 	return (
 		<Grid className="list">

@@ -5,17 +5,15 @@ export const CartContext = createContext();
 export const CartProvider = ({ children }) => {
 	const [cart, setCart] = useState([]);
 
-	const addToCart = (productId, count = 1) => {
-		const itemIndex = cart.findIndex(
-			(cartItem) => cartItem.id === productId.id
-		);
+	const addToCart = (product, count = 1) => {
+		const itemIndex = cart.findIndex((cartItem) => cartItem.id === product.id);
 
 		if (itemIndex !== -1) {
 			const updatedCart = [...cart];
 			updatedCart[itemIndex].count += count;
 			setCart(updatedCart);
 		} else {
-			setCart([...cart, { id: productId, count }]);
+			setCart([...cart, { ...product, count }]);
 		}
 	};
 
@@ -30,7 +28,7 @@ export const CartProvider = ({ children }) => {
 	const clearCart = () => {
 		setCart([]);
 	};
-
+	console.log(cart);
 	const cartTotal = cart.reduce((total, item) => total + item.price, 0);
 
 	return (
