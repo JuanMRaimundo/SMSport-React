@@ -10,17 +10,17 @@ import Category from "./pages/Category/Category";
 import Item from "./pages/Item/Item";
 import Contact from "./pages/Contact/Contact";
 import Cart from "./pages/Cart/Cart";
-
+import Checkout from "./pages/Checkout/Checkout";
 //COMPONENTS
-import NavbarIndex from "./components/Navbar";
-import { CartProvider } from "./context/CartContext";
-import ItemListContainer from "./components/ItemListContainer";
+import Navbar from "./components/Navbar/Navbar";
+import { CartProvider } from "./contexts/CartContext";
+import ItemListContainer from "./components/ItemListContainer/ItemListContainer";
 
 function App() {
 	return (
 		<CartProvider>
 			<Router>
-				<NavbarIndex />
+				<Navbar />
 
 				<Routes>
 					<Route exact path="/" element={<Home />} />
@@ -28,6 +28,7 @@ function App() {
 					<Route exact path="/contact" element={<Contact />} />
 					<Route exact path="/item/:id" element={<Item />} />
 					<Route exact path="/cart" element={<Cart />} />
+					<Route exact path="/checkout" element={<Checkout />} />
 				</Routes>
 			</Router>
 		</CartProvider>

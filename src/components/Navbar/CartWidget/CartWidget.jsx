@@ -1,6 +1,6 @@
 import Cart from "../../../assets/icons/cart.png";
 import { useContext, useState, useEffect } from "react";
-import { CartContext } from "../../../context/CartContext";
+import { CartContext } from "../../../contexts/CartContext";
 //ROUTER
 import { Link } from "react-router-dom";
 
@@ -12,13 +12,16 @@ function CartWidget() {
 	const [totalItems, setTotalItems] = useState(0);
 
 	useEffect(() => {
-		const newTotalItems = cart.reduce((total, item) => total + item.count, 0);
+		const newTotalItems = cart.reduce(
+			(total, item) => total + item.quantity,
+			0
+		);
 		setTotalItems(newTotalItems);
 	}, [cart]);
 
 	return (
-		<div>
-			<img src={Cart} alt="cart" className="cart-icon" />
+		<div className="cart-icon">
+			<img src={Cart} alt="cart" className="" />
 
 			<p>{totalItems}</p>
 		</div>

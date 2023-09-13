@@ -1,28 +1,83 @@
-import { useState, useContext } from "react";
+import { useState, useContext, useMemo } from "react";
 //COMPONENTS
-import Card from "../../components/Card";
-import Contact from "../Contact/Contact";
-import { Grid, LinearProgress } from "@mui/material";
-import { CartContext } from "../../context/CartContext";
+import Card from "../../components/Card/Card";
+import { Link } from "react-router-dom";
+
+import { CartContext } from "../../contexts/CartContext";
+import Trash from "../../assets/icons/trash-icon.png";
+import {
+	TableBody,
+	TableCell,
+	TableContainer,
+	TableHead,
+	TableRow,
+} from "@mui/material";
+import { Button, Table } from "react-bootstrap";
+//STYLES
+import "./styles.css";
 
 function Cart() {
-	const { cart } = useContext(CartContext);
+	const { cart, cartTotal, clearCart, removeFromCart, sumTotal } =
+		useContext(CartContext);
+	const total = useMemo(() => sumTotal(), [cart]);
+
+	if (cartTotal() === 0) {
+		return (
+			<div className="container">
+				<div className="row my-5">
+					<div className="col-md-12 text-center">
+						<div className="alert alert-danger" role="alert">
+							No se encontraron Productos en el Carrito!
+						</div>
+						<Link to={"/"} className="btn btn-warning">
+							Volver a la Página Principal
+						</Link>
+					</div>
+				</div>
+			</div>
+		);
+	}
 
 	return (
-		<div className="cart">
-			<div className="">
-				{cart.length > 0 ? (
-					cart.map((prod) => (
-						<Grid item xs={12} md={6} lg={3} key={prod.id}>
-							<Card data={prod} stock={5} />
-						</Grid>
-					))
-				) : (
-					<LinearProgress color="warning" />
-				)}
-			</div>
-
-			<Contact />
+		<div className="table">
+			<Table responsive>
+				<thead>
+					<tr>
+						<th>#</th>
+						<th>Producto</th>
+						<th>Cantidad</th>
+						<th>Eliminar</th>
+						<th>Precio</th>
+					</tr>
+				</thead>
+				<tbody>
+					{cart.map((item, index) => (
+						<tr key={item.id}>
+							<td>{index + 1}</td>
+							<td>{item.name}</td>
+							<td>{item.quantity}</td>
+							<td>
+								<img
+									src={Trash}
+									alt="Eliminar"
+									onClick={() => removeFromCart(item.id)}
+								/>
+							</td>
+							<td>{item.precio * item.quantity}</td>
+						</tr>
+					))}
+					<tr>
+						<td></td>
+						<td></td>
+						<td colSpan={2}>Total</td>
+						<td>{total}</td>
+						<td></td>
+					</tr>
+				</tbody>
+			</Table>
+			<Link to={"/Checkout"} className="btn-compra">
+				<Button className="btn btn-warning">Comprar</Button>
+			</Link>
 		</div>
 	);
 }

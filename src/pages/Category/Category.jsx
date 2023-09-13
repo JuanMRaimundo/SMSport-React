@@ -3,11 +3,13 @@ import { useEffect, useState } from "react";
 
 import { useParams } from "react-router-dom";
 //DATA
-import { db } from "../../firebase/firebaseConfig.jsx";
+import { db } from "../../firebase/firebaseConfig.js";
 //COMPONENTS
-import Card from "../../components/Card/index.jsx";
+import Card from "../../components/Card/Card.jsx";
 import { LinearProgress, Grid, Container } from "@mui/material";
 import { collection, query, where, getDocs } from "firebase/firestore";
+//STYLES
+import "./styles.css";
 
 function Category() {
 	const [productos, setProductos] = useState([]);

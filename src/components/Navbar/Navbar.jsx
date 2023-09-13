@@ -1,6 +1,6 @@
 import "./styles.css";
 import Logo from "../../assets/icons/logo.png";
-import CartWidget from "./CartWidget";
+import CartWidget from "./CartWidget/CartWidget";
 //ROUTER
 import { Link } from "react-router-dom";
 //STYLES
@@ -10,6 +10,8 @@ import Form from "react-bootstrap/Form";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import NavDropdown from "react-bootstrap/NavDropdown";
+import { useContext, useState } from "react";
+import { CartContext } from "../../contexts/CartContext";
 
 function NavbarIndex() {
 	return (

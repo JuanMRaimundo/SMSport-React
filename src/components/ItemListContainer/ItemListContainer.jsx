@@ -2,9 +2,9 @@ import { useEffect, useState } from "react";
 
 //DATA
 
-import { db } from "../../firebase/firebaseConfig.jsx";
+import { db } from "../../firebase/firebaseConfig.js";
 //COMPONENTS
-import Card from "../Card/index.jsx";
+import Card from "../Card/Card.jsx";
 import { Grid, LinearProgress, Container } from "@mui/material";
 import { collection, query, where, getDocs } from "firebase/firestore";
 //STYLES

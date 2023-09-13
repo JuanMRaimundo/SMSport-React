@@ -4,9 +4,9 @@ import { useParams } from "react-router-dom";
 
 //DATA
 
-import { db } from "../../firebase/firebaseConfig.jsx";
+import { db } from "../../firebase/firebaseConfig.js";
 //COMPONENTS
-import Card from "../../components/Card";
+import Card from "../../components/Card/Card.jsx";
 import { LinearProgress } from "@mui/material";
 import { collection, query, where, getDocs } from "firebase/firestore";
 import { ItemCount } from "../../components/ItemCount/ItemCount.jsx";

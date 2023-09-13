@@ -1,35 +1,59 @@
-import { useState, useContext } from "react";
-import { CartContext } from "../../context/CartContext";
+import { useState, useContext, useEffect } from "react";
+import { CartContext } from "../../contexts/CartContext";
 import { Link } from "react-router-dom";
-import { ButtonGroup } from "react-bootstrap";
+import { Button } from "@mui/material";
 
-export const ItemCount = ({ stock, product }) => {
+//STYLES
+import "./styles.css";
+
+export const ItemCount = ({ product }) => {
 	const { cart, addToCart, removeFromCart, clearCart, cartTotal } =
 		useContext(CartContext);
+	// Encuentra el producto específico en el carrito
+	const cartProduct = cart.find((item) => item.id === product.id);
+
+	// Calcula el stock inicial del producto
+	const initialStock = product.stock;
+	const availableStock =
+		initialStock - (cartProduct ? cartProduct.quantity : 0);
 	const [count, setCount] = useState(0);
 
+	useEffect(() => {
+		// Actualizar el stock disponible cuando cambie el carrito
+		if (cartProduct) {
+			const newAvailableStock = initialStock - cartProduct.quantity;
+			if (newAvailableStock !== availableStock) {
+				setCount(0); // Restablecer el contador si el stock cambió
+			}
+		}
+	}, [cartProduct, initialStock, availableStock]);
+
 	const increment = () => {
-		if (count < stock) {
+		if (count < availableStock) {
 			setCount(count + 1);
 		}
 	};
 
 	const decrement = () => {
-		if (count > 1) {
+		if (count > 0) {
 			setCount(count - 1);
 		}
 	};
+
 	const addToCartHandler = () => {
-		addToCart(product, count); // Aquí pasamos el ID del producto y la cantidad al contexto del carrito
-		setCount(0);
+		if (count > 0) {
+			addToCart(product, count);
+			setCount(0);
+		}
 	};
 
 	return (
-		<div>
+		<div className="counter">
+			<p className="card-stock">Stock: {availableStock}</p>
 			<button
 				className="btn btn-warning"
 				onClick={decrement}
-				disabled={count === 0}
+				disabled={count === availableStock}
 			>
 				-
 			</button>
@@ -37,23 +61,25 @@ export const ItemCount = ({ stock, product }) => {
 			<button
 				className="btn btn-warning"
 				onClick={increment}
-				disabled={count === 5 || stock === 0}
+				disabled={count === initialStock}
 			>
 				+
 			</button>
 			<button
 				onClick={addToCartHandler}
 				className="btn btn-dark"
-				disabled={stock === 0}
+				disabled={
+					count === 0 || count + (cartProduct?.quantity || 0) > initialStock
+				}
 			>
 				Agregar al Carrito
 			</button>
-			<button onClick={removeFromCart}>Eliminar producto</button>
+
 			<Link to="/">
-				<button>Volver</button>
+				<Button>Volver</Button>
 			</Link>
-			<Link to="../">
-				<button>Finalizar Compra</button>
+			<Link to="../../Cart">
+				<Button disabled={count === 0}>Finalizar Compra</Button>
 			</Link>
 		</div>
 	);

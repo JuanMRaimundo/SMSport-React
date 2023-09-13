@@ -13,7 +13,8 @@ function Card({ data }) {
 
 			<div className="card-body">
 				<h5 className="card-title">{data.name}</h5>
-				<p className="card-text">{data.description}</p>
+				<p className="card-description">{data.description}</p>
+
 				<p className="card-price">${data.precio}</p>
 			</div>
 		</div>

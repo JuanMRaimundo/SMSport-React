@@ -3,3 +3,12 @@
 	align-items: center;
 	justify-content: center;
 }
+.table {
+	margin-left: 5%;
+	width: 90%;
+}
+.btn-compra {
+	text-decoration: none;
+	display: flex;
+	justify-content: center;
+}
