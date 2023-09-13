@@ -19,11 +19,11 @@ export const ItemCount = ({ product }) => {
 	const [count, setCount] = useState(0);
 
 	useEffect(() => {
-		// Actualizar el stock disponible cuando cambie el carrito
+		// Actualiza el stock disponible cuando cambie el carrito
 		if (cartProduct) {
 			const newAvailableStock = initialStock - cartProduct.quantity;
 			if (newAvailableStock !== availableStock) {
-				setCount(0); // Restablecer el contador si el stock cambió
+				setCount(0); // Restablece el contador si el stock cambió
 			}
 		}
 	}, [cartProduct, initialStock, availableStock]);
@@ -53,7 +53,7 @@ export const ItemCount = ({ product }) => {
 			<button
 				className="btn btn-warning"
 				onClick={decrement}
-				disabled={count === availableStock}
+				disabled={count === 0}
 			>
 				-
 			</button>
@@ -79,7 +79,7 @@ export const ItemCount = ({ product }) => {
 				<Button>Volver</Button>
 			</Link>
 			<Link to="../../Cart">
-				<Button disabled={count === 0}>Finalizar Compra</Button>
+				<Button disabled={availableStock == 0}>Finalizar Compra</Button>
 			</Link>
 		</div>
 	);

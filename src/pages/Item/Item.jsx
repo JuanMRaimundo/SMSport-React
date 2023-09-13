@@ -8,12 +8,12 @@ import { db } from "../../firebase/firebaseConfig.js";
 //COMPONENTS
 import Card from "../../components/Card/Card.jsx";
 import { LinearProgress } from "@mui/material";
-import { collection, query, where, getDocs } from "firebase/firestore";
+import { collection, query, getDocs } from "firebase/firestore";
 import { ItemCount } from "../../components/ItemCount/ItemCount.jsx";
 
 //STYLES
 
-function Item({ data }) {
+function Item() {
 	const [producto, setProducto] = useState(null); // Inicializar como null para indicar que no hay producto seleccionado
 	let { id } = useParams();
 

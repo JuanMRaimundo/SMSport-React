@@ -1,24 +1,14 @@
-import { useState, useContext, useMemo } from "react";
+import { useContext, useMemo } from "react";
 //COMPONENTS
-import Card from "../../components/Card/Card";
 import { Link } from "react-router-dom";
-
 import { CartContext } from "../../contexts/CartContext";
 import Trash from "../../assets/icons/trash-icon.png";
-import {
-	TableBody,
-	TableCell,
-	TableContainer,
-	TableHead,
-	TableRow,
-} from "@mui/material";
 import { Button, Table } from "react-bootstrap";
 //STYLES
 import "./styles.css";
 
 function Cart() {
-	const { cart, cartTotal, clearCart, removeFromCart, sumTotal } =
-		useContext(CartContext);
+	const { cart, cartTotal, removeFromCart, sumTotal } = useContext(CartContext);
 	const total = useMemo(() => sumTotal(), [cart]);
 
 	if (cartTotal() === 0) {
@@ -63,14 +53,14 @@ function Cart() {
 									onClick={() => removeFromCart(item.id)}
 								/>
 							</td>
-							<td>{item.precio * item.quantity}</td>
+							<td>${item.precio * item.quantity}</td>
 						</tr>
 					))}
 					<tr>
 						<td></td>
 						<td></td>
-						<td colSpan={2}>Total</td>
-						<td>{total}</td>
+						<td colSpan={2}>Total:</td>
+						<td>${total}</td>
 						<td></td>
 					</tr>
 				</tbody>

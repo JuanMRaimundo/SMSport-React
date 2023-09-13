@@ -5,8 +5,8 @@ import { useEffect, useState } from "react";
 import { db } from "../../firebase/firebaseConfig.js";
 //COMPONENTS
 import Card from "../Card/Card.jsx";
-import { Grid, LinearProgress, Container } from "@mui/material";
-import { collection, query, where, getDocs } from "firebase/firestore";
+import { Grid, LinearProgress } from "@mui/material";
+import { collection, query, getDocs } from "firebase/firestore";
 //STYLES
 import "./styles.css";
 
@@ -14,12 +14,12 @@ function ItemListContainer() {
 	const [productos, setProductos] = useState([]);
 
 	useEffect(() => {
+		//tomando datos de Firestore
 		const getProducts = async () => {
 			const q = query(collection(db, "sportswear"));
 			const docs = [];
 			const querySnapshot = await getDocs(q);
 			querySnapshot.forEach((doc) => {
-				// doc.data() is never undefined for query doc snapshots
 				docs.push({ ...doc.data(), id: doc.id });
 			});
 			setProductos(docs);

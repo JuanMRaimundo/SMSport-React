@@ -6,8 +6,8 @@ import { useParams } from "react-router-dom";
 import { db } from "../../firebase/firebaseConfig.js";
 //COMPONENTS
 import Card from "../../components/Card/Card.jsx";
-import { LinearProgress, Grid, Container } from "@mui/material";
-import { collection, query, where, getDocs } from "firebase/firestore";
+import { LinearProgress, Grid } from "@mui/material";
+import { collection, query, getDocs } from "firebase/firestore";
 //STYLES
 import "./styles.css";
 
@@ -24,13 +24,13 @@ function Category() {
 				const q = query(collection(db, "sportswear"));
 				const querySnapshot = await getDocs(q);
 
-				// Mapear los documentos a un array de objetos con un 'id' personalizado
+				// Mapea los documentos a un array de objetos con un 'id' personalizado
 				const docs = querySnapshot.docs.map((doc) => ({
 					id: doc.id,
 					...doc.data(),
 				}));
 
-				// Encontrar el producto por 'id'
+				// Encuentra el producto por 'id'
 				const selectedProducts = docs.filter(
 					(prod) => prod.category === categoryID
 				);

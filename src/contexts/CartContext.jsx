@@ -4,10 +4,11 @@ export const CartContext = createContext();
 
 export const CartProvider = ({ children }) => {
 	const [cart, setCart] = useState([]);
-
+	//Verifica si está en el carro
 	const isInCart = (id) => {
 		return cart.some((x) => x.id === id);
 	};
+	//Agrega al carro de compras y se le agrega una propiedad cantidad
 	const addToCart = (item, quantity) => {
 		if (isInCart(item.id)) {
 			let pos = cart.findIndex((x) => x.id === item.id);

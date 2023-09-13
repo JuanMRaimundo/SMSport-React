@@ -14,7 +14,6 @@ import Checkout from "./pages/Checkout/Checkout";
 //COMPONENTS
 import Navbar from "./components/Navbar/Navbar";
 import { CartProvider } from "./contexts/CartContext";
-import ItemListContainer from "./components/ItemListContainer/ItemListContainer";
 
 function App() {
 	return (
