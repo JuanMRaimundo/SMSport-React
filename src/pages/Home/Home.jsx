@@ -2,10 +2,10 @@ import React from "react";
 
 import ItemListContainer from "../../components/ItemListContainer/ItemListContainer";
 
-function Home() {
+function Home({ searchQuery }) {
 	return (
 		<div className="itemListConteiner">
-			<ItemListContainer />
+			{<ItemListContainer searchQuery={searchQuery} />}
 		</div>
 	);
 }

@@ -10,8 +10,9 @@ import { collection, query, getDocs } from "firebase/firestore";
 //STYLES
 import "./styles.css";
 
-function ItemListContainer() {
+function ItemListContainer({ searchQuery }) {
 	const [productos, setProductos] = useState([]);
+	const [filteredProducts, setFilteredProducts] = useState([]);
 
 	useEffect(() => {
 		//tomando datos de Firestore
@@ -26,11 +27,21 @@ function ItemListContainer() {
 		};
 		getProducts();
 	}, []);
+	useEffect(() => {
+		if (searchQuery) {
+			const filtered = productos.filter((prod) =>
+				prod.name.toLowerCase().includes(searchQuery.toLowerCase())
+			);
+			setFilteredProducts(filtered);
+		} else {
+			setFilteredProducts(productos);
+		}
+	}, [searchQuery, productos]);
 
 	return (
 		<Grid className="list">
-			{productos.length > 0 ? (
-				productos.map((prod) => (
+			{filteredProducts.length > 0 ? (
+				filteredProducts.map((prod) => (
 					<Grid item xs={12} md={6} lg={3} key={prod.id}>
 						<Card data={prod} stock={5} />
 					</Grid>

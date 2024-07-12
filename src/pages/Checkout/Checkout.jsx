@@ -5,7 +5,7 @@ import Form from "react-bootstrap/Form";
 import InputGroup from "react-bootstrap/InputGroup";
 import { addDoc, collection } from "firebase/firestore";
 import { db } from "../../firebase/firebaseConfig";
-import OrdenCompra from "../../components/OrdenCompra/OrdenCompra";
+import PurchaseOrder from "../../components/PurchaseOrder/PurchaseOrder";
 import { LinearProgress } from "@mui/material";
 
 //STYLES
@@ -124,7 +124,7 @@ function Checkout() {
 					</Form>
 				</>
 			) : (
-				<OrdenCompra
+				<PurchaseOrder
 					ordenData={{
 						name: values.name,
 						email: values.email,

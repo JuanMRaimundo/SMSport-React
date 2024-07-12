@@ -14,15 +14,22 @@ import Checkout from "./pages/Checkout/Checkout";
 //COMPONENTS
 import Navbar from "./components/Navbar/Navbar";
 import { CartProvider } from "./contexts/CartContext";
+import { useState } from "react";
+import ItemListContainer from "./components/ItemListContainer/ItemListContainer";
 
 function App() {
+	const [searchQuery, setSearchQuery] = useState("");
+
+	const handleSearch = (query) => {
+		setSearchQuery(query);
+	};
 	return (
 		<CartProvider>
 			<Router>
-				<Navbar />
+				<Navbar onSearch={handleSearch} />
 
 				<Routes>
-					<Route exact path="/" element={<Home />} />
+					<Route exact path="/" element={<Home searchQuery={searchQuery} />} />
 					<Route exact path="/category/:categoryID" element={<Category />} />
 					<Route exact path="/contact" element={<Contact />} />
 					<Route exact path="/item/:id" element={<Item />} />

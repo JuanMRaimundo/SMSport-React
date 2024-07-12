@@ -10,8 +10,22 @@ import Form from "react-bootstrap/Form";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import NavDropdown from "react-bootstrap/NavDropdown";
+import { useState } from "react";
 
-function NavbarIndex() {
+function NavbarIndex({ onSearch }) {
+	const [searchQuery, setSearchQuery] = useState("");
+
+	const handleSearchChange = (e) => {
+		setSearchQuery(e.target.value);
+	};
+
+	const handleSearchSubmit = (e) => {
+		e.preventDefault();
+		if (searchQuery.trim()) {
+			onSearch(searchQuery.trim());
+		}
+		setSearchQuery("");
+	};
 	return (
 		<Navbar expand="lg" className="bg-warning">
 			<Container fluid>
@@ -50,14 +64,18 @@ function NavbarIndex() {
 							<CartWidget />
 						</Link>
 					</Nav>
-					<Form className="d-flex">
+					<Form className="d-flex" onSubmit={handleSearchSubmit}>
 						<Form.Control
 							type="search"
 							placeholder="Buscar"
 							className="me-2"
 							aria-label="Search"
+							value={searchQuery}
+							onChange={handleSearchChange}
 						/>
-						<Button variant="outline-dark">Buscar</Button>
+						<Button variant="outline-dark" type="submit">
+							Buscar
+						</Button>
 					</Form>
 				</Navbar.Collapse>
 			</Container>
